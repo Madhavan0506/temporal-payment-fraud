@@ -1,0 +1,9 @@
+# Direct numerical and tracking versions used for the included reference run on Python 3.12.
+numpy==2.3.5
+pandas==2.2.3
+scikit-learn==1.8.0
+joblib==1.6.0
+scipy==1.18.1
+mlflow==3.18.0
+mlflow-skinny==3.18.0
+pytest==9.2.0

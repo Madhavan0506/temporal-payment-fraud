@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Temporal graph fraud detection | Holdout results</title><style>
+:root{color-scheme:light;--ink:#102e39;--muted:#415d66;--rule:#c5d4d4;--teal:#00685c}
+*{box-sizing:border-box}
+body{margin:0;background:#fafcf9;color:var(--ink);font:16px/1.55 system-ui,sans-serif}
+main{max-width:1020px;margin:auto;padding:48px 40px 30px}
+header{border-top:6px solid var(--teal);padding:24px 0 20px}
+h1,h2{font-family:Georgia,serif;font-weight:normal;line-height:1.12;margin:0}
+h1{font-size:clamp(2rem,4.8vw,3.5rem);max-width:22ch}
+h2{font-size:1.7rem;margin-bottom:10px}
+p{max-width:82ch;margin:10px 0;color:var(--muted)}
+section{margin:30px 0;padding-top:24px;border-top:1px solid var(--rule)}
+.summary{font-size:1.1rem;color:var(--ink)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);background:#eaf3ef;border:1px solid var(--rule)}
+.stat{padding:16px 20px}.stat+.stat{border-left:1px solid var(--rule)}
+.stat strong{display:block;font-size:1.6rem;color:var(--teal);line-height:1.25}
+.stat span{color:var(--muted);font-size:.9rem}
+.table-wrap{overflow-x:auto;margin:15px 0;outline-offset:3px}
+table{border-collapse:collapse;width:100%;font-size:.9rem;font-variant-numeric:tabular-nums}
+th,td{padding:9px 12px;text-align:right;vertical-align:top}
+th:first-child{text-align:left}tr>*{border-bottom:1px solid var(--rule)}
+thead th{color:#2f535a;background:#e8f1ed;vertical-align:bottom;line-height:1.25}
+tbody th{font-weight:600}td{white-space:nowrap}
+li{margin:6px 0}details{margin:12px 0}summary{cursor:pointer;color:var(--teal);font-weight:600}
+footer{border-top:1px solid var(--rule);margin-top:32px;padding-top:12px;font-size:.85rem;color:var(--muted)}
+code{overflow-wrap:anywhere}
+@media(max-width:640px){main{padding:20px 14px}.stat{padding:12px 8px}.stat strong{font-size:1.25rem}
+.stat span{font-size:.8rem}th,td{padding:8px}h2{font-size:1.45rem}}
+@media print{main{padding:0}.table-wrap{overflow:visible}tr,.stats{break-inside:avoid}body{background:white}}
+</style></head>
+<body><main><header><h1>Temporal graph fraud detection for digital payments</h1>
+<p class="summary">Across 140 fraudulent payments in the holdout, the transaction-only model flagged
+5, the graph model flagged 88, and the model with the additional
+anomaly score flagged 87. They generated 58, 67,
+and 60 false alerts respectively.</p></header>
+<div class="stats"><div class="stat"><strong>36,000</strong><span>synthetic payments over 90 days</span></div>
+<div class="stat"><strong>7,201</strong><span>payments in the final holdout</span></div>
+<div class="stat"><strong>1.00%</strong><span>validation false-positive budget</span></div></div>
+<section><h2>Model comparison</h2>
+<p>All three models used the same supervised training period. The baseline used payment amount and time.
+The graph model added recent transfer counts, distinct counterparties and pair history.
+The hybrid model also used an Isolation Forest anomaly score.</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Model performance on the final holdout and false-positive rates on validation"><table aria-label="Model performance on the final holdout and false-positive rates on validation"><thead><tr><th scope="col">Model</th><th scope="col">Fraud recall</th><th scope="col">Test FPR</th><th scope="col">Precision</th><th scope="col">Average precision</th><th scope="col">Validation FPR</th></tr></thead><tbody><tr><th scope="row">Transaction only</th><td>3.57%</td><td>0.82%</td><td>7.94%</td><td>0.037</td><td>0.994%</td></tr><tr><th scope="row">Transaction + graph</th><td>62.86%</td><td>0.95%</td><td>56.77%</td><td>0.602</td><td>0.994%</td></tr><tr><th scope="row">Graph + anomaly</th><td>62.14%</td><td>0.85%</td><td>59.18%</td><td>0.632</td><td>0.994%</td></tr></tbody></table></div>
+<p>Recall is the share of the 140 fraudulent payments flagged. The test false-positive rate (FPR)
+is the share of the 7,061 legitimate payments flagged. Precision is the share of alerts that
+were fraud. Average precision measures how well the scores rank fraud across thresholds.</p>
+<details open><summary>Alert counts and operating thresholds</summary><div class="table-wrap" tabindex="0" role="region" aria-label="Decision counts and frozen thresholds"><table aria-label="Decision counts and frozen thresholds"><thead><tr><th scope="col">Model</th><th scope="col">Fraud flagged</th><th scope="col">Fraud missed</th><th scope="col">False alerts</th><th scope="col">Legitimate cleared</th><th scope="col">Score threshold</th></tr></thead><tbody><tr><th scope="row">Transaction only</th><td>5</td><td>135</td><td>58</td><td>7003</td><td>0.737051</td></tr><tr><th scope="row">Transaction + graph</th><td>88</td><td>52</td><td>67</td><td>6994</td><td>0.590192</td></tr><tr><th scope="row">Graph + anomaly</th><td>87</td><td>53</td><td>60</td><td>7001</td><td>0.620339</td></tr></tbody></table></div></details></section>
+<section><h2>Coordinated activity</h2>
+<p>An episode counts as detected when a model flags at least one fraudulent transfer from that episode
+during the holdout. Transaction recall shows how much of each pattern the model caught.</p><div class="table-wrap" tabindex="0" role="region" aria-label="Detection outcomes by coordinated fraud pattern"><table aria-label="Detection outcomes by coordinated fraud pattern"><thead><tr><th scope="col">Simulated pattern</th><th scope="col">Model</th><th scope="col">Fraud flagged / total</th><th scope="col">Fraud recall</th><th scope="col">Episodes detected / total</th></tr></thead><tbody><tr><th scope="row">Circular transfers</th><td>Transaction only</td><td>1 / 51</td><td>2.0%</td><td>1 / 6</td></tr><tr><th scope="row">Circular transfers</th><td>Transaction + graph</td><td>38 / 51</td><td>74.5%</td><td>6 / 6</td></tr><tr><th scope="row">Circular transfers</th><td>Graph + anomaly</td><td>37 / 51</td><td>72.5%</td><td>6 / 6</td></tr><tr><th scope="row">Many senders to one account</th><td>Transaction only</td><td>0 / 46</td><td>0.0%</td><td>0 / 6</td></tr><tr><th scope="row">Many senders to one account</th><td>Transaction + graph</td><td>25 / 46</td><td>54.3%</td><td>4 / 6</td></tr><tr><th scope="row">Many senders to one account</th><td>Graph + anomaly</td><td>25 / 46</td><td>54.3%</td><td>4 / 6</td></tr><tr><th scope="row">One account to many recipients</th><td>Transaction only</td><td>4 / 43</td><td>9.3%</td><td>3 / 6</td></tr><tr><th scope="row">One account to many recipients</th><td>Transaction + graph</td><td>25 / 43</td><td>58.1%</td><td>5 / 6</td></tr><tr><th scope="row">One account to many recipients</th><td>Graph + anomaly</td><td>25 / 43</td><td>58.1%</td><td>5 / 6</td></tr></tbody></table></div></section>
+<section><h2>Chronological evaluation</h2><div class="table-wrap" tabindex="0" role="region" aria-label="Chronological experiment periods"><table aria-label="Chronological experiment periods"><thead><tr><th scope="col">Period</th><th scope="col">Start (UTC)</th><th scope="col">End (UTC)</th><th scope="col">Payments</th><th scope="col">Fraud</th></tr></thead><tbody><tr><th scope="row">Anomaly reference</th><td>2024-01-01 00:02:12</td><td>2024-01-18 22:46:10</td><td>7,198</td><td>134</td></tr><tr><th scope="row">Classifier training</th><td>2024-01-18 22:58:44</td><td>2024-02-24 01:08:36</td><td>14,404</td><td>298</td></tr><tr><th scope="row">Threshold calibration</th><td>2024-02-24 01:11:41</td><td>2024-03-12 22:58:50</td><td>7,197</td><td>155</td></tr><tr><th scope="row">Final holdout</th><td>2024-03-12 23:18:19</td><td>2024-03-30 23:59:59</td><td>7,201</td><td>140</td></tr></tbody></table></div>
+<p>The earliest period supplied legitimate examples for the anomaly detector. The next trained the classifiers.
+Each model used its own threshold calibrated on legitimate validation payments. The final period measures
+how that frozen threshold performed on later payments.</p></section>
+<section><h2>Leakage checks and scope</h2>
+<ul><li>Recomputing features on an earlier prefix reproduced those rows from the full history.</li>
+<li>Removing simulator labels and audit identifiers preserved the model inputs.</li>
+<li>Every model stayed within the validation false-positive budget before the holdout comparison.</li></ul>
+<p>The simulator includes legitimate group collections and payouts alongside coordinated fraud.
+These numbers describe this generated population. Estimating performance on an operating payment system
+requires independently labeled transactions from that system.</p></section>
+<footer>Generator seed 42 &nbsp;·&nbsp; MLflow run <code>0dd050c153c14d2197db9cb1db39bbf1</code></footer>
+</main></body></html>

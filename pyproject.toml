@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "payment-fraud"
+version = "1.0.0"
+description = "Point-in-time graph features and fraud detection for synthetic payments"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24,<3",
+    "pandas>=2.0,<4",
+    "scikit-learn>=1.4,<2",
+    "joblib>=1.3,<2",
+    "mlflow-skinny>=2.22,<4",
+]
+
+[project.optional-dependencies]
+local = ["mlflow>=2.22,<4"]
+test = ["pytest>=8,<10"]
+
+[project.scripts]
+payment-fraud = "payment_fraud.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

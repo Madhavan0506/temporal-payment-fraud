@@ -1,0 +1,58 @@
+{
+  "run_id": "e389006b7636492ba69d24bc846b8d13",
+  "experiment_id": "1",
+  "child_runs": {
+    "baseline": "a707adefd0454fc89778952afc64b56c",
+    "graph": "4302c768683e43649ffbd0c5f908a6a9",
+    "hybrid": "11aaa7a2f9d3447091579d12a68043e9"
+  },
+  "parameters": {
+    "seed": 42,
+    "days": 90,
+    "transactions_per_day": 400,
+    "target_fpr": 0.01,
+    "split_by": "ordered unique UTC timestamps",
+    "period_shares": "0.2,0.4,0.2,0.2"
+  },
+  "versions": {
+    "mlflow-skinny": "3.18.0",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scikit-learn": "1.8.0",
+    "joblib": "1.6.0",
+    "scipy": "1.18.1",
+    "payment-fraud": "1.0.0",
+    "python": "3.12.14"
+  },
+  "audit": {
+    "features_ignore_labels_and_ids": true,
+    "pretest_features_match_truncated_history": true,
+    "all_validation_fprs_within_budget": true,
+    "prefix_rows_checked": 28799
+  },
+  "base_features": [
+    "log_amount",
+    "hour_sin",
+    "hour_cos",
+    "weekday_sin",
+    "weekday_cos"
+  ],
+  "graph_features": [
+    "sender_sent_10m",
+    "recipient_received_10m",
+    "sender_received_10m",
+    "recipient_sent_10m",
+    "sender_sent_1h",
+    "recipient_received_1h",
+    "sender_received_1h",
+    "recipient_sent_1h",
+    "sender_distinct_recipients_1h",
+    "recipient_distinct_senders_1h",
+    "sender_sent_24h",
+    "recipient_received_24h",
+    "sender_distinct_recipients_24h",
+    "recipient_distinct_senders_24h",
+    "pair_payments_24h",
+    "reverse_pair_payments_24h"
+  ]
+}

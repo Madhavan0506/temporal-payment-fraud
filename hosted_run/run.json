@@ -1,0 +1,59 @@
+{
+  "notebook_url": "https://dbc-c0bcb182-ce0e.cloud.databricks.com/editor/notebooks/2015115595514686",
+  "workspace_edition": "Free Edition",
+  "job_url": "https://dbc-c0bcb182-ce0e.cloud.databricks.com/?o=7474655016569155#job/300945479347682/run/762349566038293",
+  "job_run_id": 762349566038293,
+  "mlflow_run_id": "0dd050c153c14d2197db9cb1db39bbf1",
+  "mlflow_url": "https://dbc-c0bcb182-ce0e.cloud.databricks.com/ml/experiments/2449797490053810/runs/0dd050c153c14d2197db9cb1db39bbf1",
+  "artifacts": [
+    "by_pattern.csv",
+    "manifest.json",
+    "metrics.csv",
+    "payments.csv.gz",
+    "predictions.csv.gz",
+    "report.html",
+    "splits.csv",
+    "models"
+  ],
+  "detectors": {
+    "hybrid": {
+      "threshold": 0.6203386221705598,
+      "target_fpr": 0.01,
+      "test_average_precision": 0.6324975056762535,
+      "test_fn": 53.0,
+      "test_fp": 60.0,
+      "test_fpr": 0.008497379974507861,
+      "test_precision": 0.5918367346938775,
+      "test_recall": 0.6214285714285714,
+      "test_tn": 7001.0,
+      "test_tp": 87.0,
+      "validation_fpr": 0.009940357852882704
+    },
+    "graph": {
+      "validation_fpr": 0.009940357852882704,
+      "threshold": 0.5901917663067338,
+      "test_tp": 88.0,
+      "test_tn": 6994.0,
+      "test_recall": 0.6285714285714286,
+      "test_precision": 0.567741935483871,
+      "test_fpr": 0.009488740971533778,
+      "test_fp": 67.0,
+      "target_fpr": 0.01,
+      "test_average_precision": 0.6021848326566642,
+      "test_fn": 52.0
+    },
+    "baseline": {
+      "target_fpr": 0.01,
+      "test_average_precision": 0.03653115018774686,
+      "test_fn": 135.0,
+      "test_fp": 58.0,
+      "test_fpr": 0.008214133975357599,
+      "test_precision": 0.07936507936507936,
+      "test_recall": 0.03571428571428571,
+      "test_tn": 7003.0,
+      "test_tp": 5.0,
+      "threshold": 0.7370506056249353,
+      "validation_fpr": 0.009940357852882704
+    }
+  }
+}

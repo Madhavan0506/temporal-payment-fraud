@@ -1,0 +1,10 @@
+model,pattern,fraud_transactions,transactions_detected,recall,rings,rings_detected
+baseline,cycle,51,1,0.0196078431372549,6,1
+baseline,fan_in,46,0,0.0,6,0
+baseline,fan_out,43,4,0.09302325581395349,6,3
+graph,cycle,51,38,0.7450980392156863,6,6
+graph,fan_in,46,25,0.5434782608695652,6,4
+graph,fan_out,43,25,0.5813953488372093,6,5
+hybrid,cycle,51,37,0.7254901960784313,6,6
+hybrid,fan_in,46,25,0.5434782608695652,6,4
+hybrid,fan_out,43,25,0.5813953488372093,6,5
